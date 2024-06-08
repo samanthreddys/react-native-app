@@ -1,12 +1,51 @@
 import { View, Text } from "react-native";
-import { Link, Stack } from "expo-router";
+import { Link, Stack, StackNavigator } from "expo-router"; // Assuming StackNavigator is the correct import for your Stack navigator
+import { useState } from "react";
+import { ScrollView, SafeAreaView } from "react-native";
+import { useRouter } from "expo-router";
 
-export default function Home(){
+import { COLORS, icons, images, SIZES } from "../constants";
+import { Nearbyjobs, Popularjobs, ScreenHeaderBtn, Welcome } from '../components';
+import { ScreenStackHeaderBackButtonImage } from "react-native-screens";
+
+const Home = () => {
+    const router = useRouter();
     return(
-        <View style={{flex: 1, justifyContent:"center", alignItems:"center"}}>
-            <Stack.Screen options={{title:"Home"}} />
-            <Link href="/details"> Go to Details</Link>
-        
-        </View>
-    );
+        <SafeAreaView style={{flex: 1, backgroundColor: COLORS.lightWhite}}>
+                <Stack.Screen
+
+                    options={{
+                        headerStyle: {backgroundColor: COLORS.lightWhite},
+                        headerShadowVisible: false,
+                        headerLeft: () => (
+                            <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
+                        ),
+                        headerRight: () => (
+                            <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
+                        ),  
+
+                        headerTitle:"",
+                       
+                    }}
+                />
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <View
+                        style={{
+                                flex: 1,
+                                padding: SIZES.medium
+                            }}
+                    >
+                        <Welcome
+
+                        />
+                        <Popularjobs />
+                        <Nearbyjobs />
+
+                        
+                    </View>    
+                </ScrollView>
+        </SafeAreaView>
+    )
 }
+
+export default Home;
